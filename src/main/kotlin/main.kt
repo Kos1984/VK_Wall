@@ -2,19 +2,66 @@ data class Post(
     val id: Int = 0,
     val ownerId: Int = 0,
     val fromId: Int = 0,
-    val text: String = "Hello world",
+    val createdBy: Int = 0,
     val date: Long = System.currentTimeMillis()/1000,
-    val copyright: String? = null,
+    val text: String = "Hello world",
+    val replyOwnerId: Int = 0,
+    val replyPostId: Int = 0,
     val friendsOnly: Boolean = false,
+    val comments: Comments = Comments(),
+    val copyright: String? = null,
+    val likes: Likes = Likes(),
+    val reposts: Reposts = Reposts(),
+    val views: Views = Views(),
+    val postType: String? = null,
+    val postSource: PostSource? = null, // сделать класс
+    val attachments: Array<Attachment> = emptyArray(),
+    val geo: Geo = Geo(),
+    val singerId: Int = 0,
+    val copyHistory: Array<Int>? = null,
+    val canPin: Boolean = true,
     val canDelete: Boolean = false,
     val canEdit: Boolean = false,
-    val comments: Comments = Comments()
+    val isPinned: Boolean = false,
+    val markedAsAds: Boolean = false,
+    val isFavorite: Boolean = false,
+    val postponedId: Int = 0,
 )
+
+
 
 data class Comments(
     val count: Int = 0,
     val canPost: Boolean = true,
+)
 
+data class Likes(
+    val count: Int = 0,
+    val userLikes: Boolean = false,
+    val canLike: Boolean = false,
+    val canPublish: Boolean = false
+)
+
+data class Reposts(
+    val count: Int = 0,
+    val userReposed: Boolean = false
+)
+data class Views(
+    val count: Int = 0,
+)
+
+data class PostSource(
+    val key: Long = 0, // найти инфу что должен содержать класс
+)
+
+data class Geo(
+    val type: String? = null,
+    val coordinates: String? = null,
+    val place: Place? = null
+)
+
+data class Place(
+    val place: String? = null
 )
 
 object WallService {
@@ -41,10 +88,8 @@ object WallService {
 
 fun main() {
     val post = Post()
-    val post1 =  post.copy()
-    val post2 = post.copy(id =1, ownerId = 5)
 
-    println (WallService.add(post))
-    WallService.add(post1)
-    WallService.update(post2)
 }
+
+
+
