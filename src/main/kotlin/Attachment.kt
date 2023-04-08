@@ -1,93 +1,101 @@
-
-
 abstract class Attachment {
-    abstract val type: String
+    abstract val type: Any
 }
 
-data class Photo(
-    val id: Int,
-    val albumId: Int,
-    val ownerId: Int,
-    val userId: Int,
-    val text: String,
-    val date: Long,
+class Photo () : Attachment() {
+    override val type: Any = PhotoAttach()
+}
+
+data class PhotoAttach(
+    val id: Int = 0 ,
+    val albumId: Int = 0,
+    val ownerId: Int = 0,
+    val userId: Int = 0,
+    val text: String? = null,
+    val date: Long = 0,
     val size: Array<PhotoCopy> = emptyArray(),
-    val width: Int,
-    val height: Int
-) : Attachment() {
-    override val type: String = "Photo"
+    val width: Int = 0,
+    val height: Int = 0
+)
+
+class PostedPhoto(
+) : Attachment(){
+    override val type: Any = PostedPhotoAttach()
 }
 
-data class PostedPhoto(
+data class PostedPhotoAttach(
     val id: Int = 0,
     val ownerId: Int = 0,
     val photo130: String? = null,
     val photo604: String? = null
-) : Attachment(){
-    override val type: String = "Posted Photo"
+)
+
+class Audio( ) : Attachment(){
+    override val type: Any = AudioAttach()
 }
 
-
-
-data class Audio(
-     val id: Int,
-     val ownerId: Int,
-     val artist: String,
-     val title: String,
-     val duration: Int,
-     val url: String,
-     val lyricsId: Int,
-     val albumId: Int,
-     val genreId: Int,
-     val date: Int,
-     val noSearch: Boolean = true,
-     val isHq: Boolean = false
-) : Attachment(){
-     override val type: String = "Audio"
- }
+data class AudioAttach(
+    val id: Int = 0,
+    val ownerId: Int = 0,
+    val artist: String? = null,
+    val title: String? = null,
+    val duration: Int = 0,
+    val url: String? = null,
+    val lyricsId: Int = 0,
+    val albumId: Int = 0,
+    val genreId: Int = 0,
+    val date: Int = 0,
+    val noSearch: Boolean = true,
+    val isHq: Boolean = false
+)
 // ToDO описать класс
-data class Document(
-    val id: Int,
-    val ownerId: Int,
-    val title: String,
-    val size: Int,
-    val ext: String,
-    val url: String,
-    val date: Int,
-    val typeDocument: Int,
+class Document() : Attachment(){
+    override val type: Any = DocumentAttach()
+}
+
+data class DocumentAttach(
+    val id: Int = 0,
+    val ownerId: Int = 0,
+    val title: String? = null,
+    val size: Int = 0,
+    val ext: String? = null,
+    val url: String? = null,
+    val date: Int = 0,
+    val typeDocument: Int = 0,
     val preview: Preview = Preview() // ToDO описать класс
-) : Attachment(){
-    override val type: String = "Document"
+)
+
+class Link() : Attachment(){
+    override val type: Any = LinkAttach()
 }
 
-data class Link(
-    val url: String,
-    val title: String,
-    val caption: String,
-    val descriptionLink: String,
-    val photo: Photo? = null, //ToDo может объееденить ?
-    val product: Product?, // ToDO описать класс
-    val button: Button?, // ToDO описать класс
-    val previewPage: String,
-    val previewUrl: String
-) : Attachment(){
-    override val type: String = "Link"
+data class LinkAttach(
+    val url: String? = null,
+    val title: String? = null,
+    val caption: String? = null,
+    val descriptionLink: String? = null,
+    val photo: Photo? = null,
+    val product: Product? = null,
+    val button: Button? = null,
+    val previewPage: String? = null,
+    val previewUrl: String? = null
+)
+
+class Note() : Attachment(){
+    override val type: Any = NoteAttach()
 }
 
-data class Note(
-    val id: Int,
-    val ownerId: Int,
-    val title: String,
-    val text: String,
-    val date: Int,
-    val comments: Int,
-    val readComments: Int,
-    val viewUrl: String,
-) : Attachment(){
-    override val type: String = "Note"
+data class NoteAttach(
+    val id: Int = 0,
+    val ownerId: Int = 0,
+    val title: String? = null,
+    val text: String? = null,
+    val date: Int = 0,
+    val comments: Int = 0,
+    val readComments: Int = 0,
+    val viewUrl: String? = null ,
+)
 
-}
-// ToDO поправить данные в классе
 data class PhotoCopy(
     val type: String? = null,
     val url: String? = null,
@@ -128,7 +136,6 @@ data class Price (
 data class Currency(
     val id: Int = 0,
     val name: String? = null,
-
 )
 
 data class Button (
