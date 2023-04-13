@@ -88,7 +88,6 @@ object WallService {
 
 fun main() {
     val post = Post()
-
 }
 
 
