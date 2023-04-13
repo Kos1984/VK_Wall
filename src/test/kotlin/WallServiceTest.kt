@@ -29,4 +29,22 @@ class WallServiceTest {
         val result = WallService.update(post2)
         assertFalse(result)
     }
+
+    @Test
+    fun addCommentToPost() {
+        val post = Post()
+        WallService.add(post)
+        val id = 1
+        val comment = Comment()
+        WallService.createComment(id, comment)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow() {
+        val post = Post()
+        WallService.add(post)
+        val id = 0
+        val comment = Comment()
+        WallService.createComment(id, comment)
+    }
 }
